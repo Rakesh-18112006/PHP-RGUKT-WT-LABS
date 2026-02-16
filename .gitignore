@@ -1,0 +1,27 @@
+# Global gitignore for the project
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+vendor/
+node_modules/
+composer.lock
+package-lock.json
+
+# Secrets & Configs
+*.env
+config.php
+client_secret_*.json
+
+# Logs
+*.log
+
+# IDE Settings
+.vscode/
+.idea/
+
+# Backend Uploads
+backend/uploads/*
+!backend/uploads/.gitkeep

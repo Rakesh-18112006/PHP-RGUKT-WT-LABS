@@ -1,0 +1,10 @@
+# System Files
+.DS_Store
+
+# Dependencies
+/vendor
+composer.lock
+
+# Secrets
+config.php
+client_secret_*.json

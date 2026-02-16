@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Firebase Google Login (PHP backend)</title>
+</head>
+<body>
+  <button id="login">Login with Google</button>
+  <button id="call" disabled>Call PHP API</button>
+  <pre id="out"></pre>
+  
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+    // 1) Paste your firebaseConfig from Firebase console here
+    const firebaseConfig = {
+    apiKey: "AIzaSyDAGhZaa0je2XcEaPFgPj33ItBJ-cyaH1Q",
+    authDomain: "rakeshstores-bc8a2.firebaseapp.com",
+    projectId: "rakeshstores-bc8a2",
+    storageBucket: "rakeshstores-bc8a2.firebasestorage.app",
+    messagingSenderId: "648663480895",
+    appId: "1:648663480895:web:31b8d6ef359fbd0be5968a"
+  };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const out = document.getElementById("out");
+    const loginBtn = document.getElementById("login");
+    const callBtn = document.getElementById("call");
+
+    let idToken = null;
+
+    loginBtn.onclick = async () => {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        idToken = await result.user.getIdToken(); // Firebase ID token
+        out.textContent =
+          "Logged in as: " + (result.user.email ?? "(no email)") + "\n\n" +
+          "ID token length: " + idToken.length;
+
+        callBtn.disabled = false;
+      } catch (e) {
+        out.textContent = "Login error:\n" + (e?.message ?? String(e));
+      }
+    };
+
+    callBtn.onclick = async () => {
+      try {
+        const res = await fetch("/firebase-google-php/api/me.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + idToken
+          },
+          body: JSON.stringify({})
+        });
+
+        const data = await res.json();
+        out.textContent = JSON.stringify(data, null, 2);
+      } catch (e) {
+        out.textContent = "API call error:\n" + (e?.message ?? String(e));
+      }
+    };
+  </script>
+</body>
+</html>

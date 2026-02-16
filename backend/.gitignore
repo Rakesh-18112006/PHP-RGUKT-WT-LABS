@@ -1,0 +1,6 @@
+# System Files
+.DS_Store
+
+# Uploads (Keep directory but ignore files)
+uploads/*
+!uploads/.gitkeep

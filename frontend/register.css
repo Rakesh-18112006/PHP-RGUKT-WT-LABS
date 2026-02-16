@@ -31,3 +31,15 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+.register .form button:hover {
+    background-color: #218838;
+}
+
+.register .form input[type="file"] {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}

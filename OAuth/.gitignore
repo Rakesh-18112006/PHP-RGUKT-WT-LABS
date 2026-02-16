@@ -1,0 +1,22 @@
+# System Files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+/vendor
+/node_modules
+composer.lock
+package-lock.json
+
+# Environment / Config Files with Secrets
+.env
+config.php
+client_secret_*.json
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+*.swp
